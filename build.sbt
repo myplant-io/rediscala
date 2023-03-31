@@ -20,11 +20,21 @@ releaseProcess := Seq[ReleaseStep](
 
 ThisBuild / sonatypeCredentialHost := "s01.oss.sonatype.org"
 
+
+
 val akka = Def.setting(
-  Seq(
-    "com.typesafe.akka" %% "akka-actor" % "2.6.19",
-    "com.typesafe.akka" %% "akka-testkit" % "2.6.19" % "test"
-  )
+  scalaBinaryVersion.value match {
+    case "2.12" =>
+      Seq(
+        "com.typesafe.akka" %% "akka-actor" % "2.5.32",
+        "com.typesafe.akka" %% "akka-testkit" % "2.5.32" % "test"
+      )
+    case _ =>
+      Seq(
+        "com.typesafe.akka" %% "akka-actor" % "2.6.19",
+        "com.typesafe.akka" %% "akka-testkit" % "2.6.19" % "test"
+      )
+  }
 )
 
 val specs2 = "org.specs2" %% "specs2-core" % "4.16.1" cross CrossVersion.for3Use2_13
