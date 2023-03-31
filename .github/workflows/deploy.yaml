@@ -26,3 +26,7 @@ jobs:
           distribution: adopt
       - uses: coursier/cache-action@v6
       - run: sbt "SetScala${{ matrix.scala }}" publish
+        env:
+          NEXUS_MYPLANT_USERNAME: ${{ secrets.NEXUS_MYPLANT_USERNAME }}
+          NEXUS_MYPLANT_PASSWORD: ${{ secrets.NEXUS_MYPLANT_PASSWORD }}
+
