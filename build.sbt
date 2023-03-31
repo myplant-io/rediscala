@@ -11,14 +11,10 @@ releaseProcess := Seq[ReleaseStep](
   setReleaseVersion,
   commitReleaseVersion,
   tagRelease,
-  releaseStepCommandAndRemaining("+ publishSigned"),
-  releaseStepCommandAndRemaining("sonatypeBundleRelease"),
   setNextVersion,
   commitNextVersion,
   pushChanges,
 )
-
-ThisBuild / sonatypeCredentialHost := "s01.oss.sonatype.org"
 
 val akka = Def.setting(
   scalaBinaryVersion.value match {
@@ -57,7 +53,7 @@ val Scala3 = "3.2.2"
 
 lazy val standardSettings = Def.settings(
   name := "rediscala",
-  organization := "io.github.rediscala",
+  organization := "io.myplant",
   scalaVersion := Scala212,
   crossScalaVersions := Seq(Scala212, Scala213, Scala3),
   addCommandAlias("SetScala2_12", s"++ ${Scala212}! -v"),
@@ -75,7 +71,13 @@ lazy val standardSettings = Def.settings(
       </developer>
     </developers>
   ),
-  publishTo := sonatypePublishToBundle.value,
+  credentials += Credentials(
+    "Sonatype Nexus Repository Manager",
+    "nexus-dev.myplant.io",
+    sys.env.get("NEXUS_MYPLANT_USERNAME").getOrElse("please set environment variable: NEXUS_MYPLANT_USERNAME"),
+    sys.env.get("NEXUS_MYPLANT_PASSWORD").getOrElse("pleaseset environment variable: NEXUS_MYPLANT_PASSWORD")
+  ),
+  publishTo := Some("Sonatype Nexus Repository Manager" at "https://nexus-dev.myplant.io/repository/maven-releases/"),
   publishMavenStyle := true,
   javacOptions ++= Seq("-source", "1.8", "-target", "1.8"),
   scalacOptions ++= Seq(
