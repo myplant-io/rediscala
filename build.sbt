@@ -23,6 +23,7 @@ ThisBuild / sonatypeCredentialHost := "s01.oss.sonatype.org"
 
 
 val akka = Def.setting(
+  
   scalaBinaryVersion.value match {
     case "2.12" =>
       Seq(
