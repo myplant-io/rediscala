@@ -20,8 +20,8 @@ val akka = Def.setting(
   scalaBinaryVersion.value match {
     case "2.12" =>
       Seq(
-        "com.typesafe.akka" %% "akka-actor" % "2.5.31",
-        "com.typesafe.akka" %% "akka-testkit" % "2.5.31" % "test"
+        "com.typesafe.akka" %% "akka-actor" % "2.5.23",
+        "com.typesafe.akka" %% "akka-testkit" % "2.5.23" % "test"
       )
     case _ =>
       Seq(
